@@ -1,0 +1,26 @@
+﻿<Controls:MetroWindow x:Class="MoreMovies.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoreMovies"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="450" Width="800">
+    <Controls:MetroWindow.RightWindowCommands>
+    <Controls:WindowCommands>
+        <Button>
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconModern Width="24" Height="24" Kind="FoodCupcake" />
+                <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="deploy cupcakes" />
+            </StackPanel>
+        </Button>
+    </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        
+    </Grid>
+</Controls:MetroWindow>
