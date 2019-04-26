@@ -12,13 +12,17 @@
         Title="MainWindow" Height="450" Width="800">
     <Controls:MetroWindow.RightWindowCommands>
     <Controls:WindowCommands>
-        <Button>
-            <StackPanel Orientation="Horizontal">
-                <iconPacks:PackIconModern Width="24" Height="24" Kind="FoodCupcake" />
-                <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="deploy cupcakes" />
-            </StackPanel>
-        </Button>
-    </Controls:WindowCommands>
+            <Menu IsMainMenu="True" x:Name="mnuMainMenu" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Background="Transparent" Width="Auto" >
+                <MenuItem  x:Name="mnuFile" Visibility="Visible" Background="Transparent">
+                    <MenuItem.Header>
+                        <iconPacks:PackIconModern Width="16" Height="16" Kind="FoodCupcake" />
+                    </MenuItem.Header>
+                    <MenuItem Header="_Data maintenance" x:Name="mnuDataMaintenance" Background="Transparent"/>
+                    <MenuItem Header="_About" x:Name="mnuAbout" Background="Transparent"/>
+                </MenuItem>
+            </Menu>
+
+        </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
         
