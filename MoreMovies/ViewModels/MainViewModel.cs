@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Reactive.Linq;
+using System.Collections.ObjectModel;
+using MoreMovies.Models;
 
 namespace MoreMovies.ViewModels
 {
@@ -19,7 +21,7 @@ namespace MoreMovies.ViewModels
     {
         [Reactive]
         public virtual ReactiveCommand<MetroWindow, Task> CmdDataMaintenance { get; set; }
-
+        public virtual ObservableCollection<Title_Akas> Title_Akases { get; set; } = new ObservableCollection<Title_Akas>();
         public MainViewModel()
         {
             CmdDataMaintenance = ReactiveCommand.Create(async (MetroWindow w) => {
@@ -40,18 +42,29 @@ namespace MoreMovies.ViewModels
             var controller = await w.ShowProgressAsync("Please wait...", "Decompress title.akas.tsv.gz!", settings: mySettings);
             controller.SetIndeterminate();
 
-            await Decompress(new FileInfo("title.akas.tsv.gz"));//Task.Delay(5000);
+            await Decompress(new FileInfo("Dataset\\title.akas.tsv.gz"));//Task.Delay(5000);
 
             controller.SetCancelable(true);
             await Task.Run(() => 
             {
-                var lines = File.ReadAllLines(@"title.akas.tsv");
+                var lines = File.ReadAllLines(@"Dataset\\title.akas.tsv");
                 int idx = 0;
                 IObservable<string[]> allRecords = lines.Skip(1)
                                                         .Select(line => line.Split('\t'))
                                                         .ToObservable();
                 allRecords.Subscribe((fields) =>
-                          {
+                          {                            
+                              Title_Akases.Add(new Title_Akas {
+                                  //titleId	ordering	title	region	language	types	attributes	isOriginalTitle
+                                  titleId = fields[0],
+                                  ordering = Int32.Parse(fields[1]),
+                                  title = fields[2],
+                                  region = fields[3],
+                                  language = fields[4],
+                                  types = fields[5],
+                                  attributes = fields[6],
+                                  isOriginalTitle = fields[7].Equals("0") ? false : true
+                              });
                               if (++idx % 100 == 0)
                               {
                                   controller.SetMessage("Baking cupcake(" + idx + "): " + fields[2] + " ...");
