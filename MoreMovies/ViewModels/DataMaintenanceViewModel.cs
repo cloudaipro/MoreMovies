@@ -29,9 +29,16 @@ namespace MoreMovies.ViewModels
             // Show...
             ProgressDialogController controller = await dialogCoordinator.ShowProgressAsync(this, "HEADER", "MESSAGE");
             controller.SetIndeterminate();
-
             // Do your work... 
-
+            Directory.GetFiles("Dataset", "*.gz");
+            (new DirectoryInfo("Dataset")).GetFiles("*.gz")
+                                          .ToList<FileInfo>()
+                                          .ForEach(x =>
+                                              {
+                                                  controller.SetMessage("Decompress " + x.Name + "...");
+                                                  Decompress(x);
+                                              });
+                                          
             // Close...
             await controller.CloseAsync();
         }
