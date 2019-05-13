@@ -451,7 +451,7 @@ namespace MoreMovies.ViewModels
                         {
                             progress += line.Length + 1;
                             dPercentage = progress * 100 / fileSize;
-                            controller.SetProgress(dPercentage);
+                            controller.SetProgress(Math.Round(dPercentage / 100, 2));
                             controller.SetMessage("Create data " + tsvName + " ... " + idx++ + " - " + Math.Round(dPercentage, 2) + "%");
                             if (controller.IsCanceled)
                                 break;
