@@ -3,7 +3,7 @@
   <typedef name="TrimString" class="MyHibernateUtil.TrimString, MyHibernateUtil"/>
   <class name="Title_Principals" table="Title_Principals" lazy="true" >
     <composite-id>
-      <key-property name="tconst" column="titleId" />
+      <key-property name="tconst" column="tconst" />
       <key-property name="ordering" column="ordering" />
     </composite-id>
     <property name="nconst" column="nconst" type ="TrimString"/>

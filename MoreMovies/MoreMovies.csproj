@@ -190,21 +190,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Models\Mappings\Title_Ratings.hbm.xml">
+    <EmbeddedResource Include="Models\Mappings\Title_Ratings.hbm.xml">
       <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Models\Mappings\Title_Principals.hbm.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Mappings\Title_Principals.hbm.xml">
       <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Models\Mappings\Title_Episode.hbm.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Mappings\Title_Episode.hbm.xml">
       <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Models\Mappings\Title_Crew.hbm.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Mappings\Title_Crew.hbm.xml">
       <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Models\Mappings\Title_Basics.hbm.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Mappings\Title_Basics.hbm.xml">
       <SubType>Designer</SubType>
-    </Resource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\Mappings\Title_Akas.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

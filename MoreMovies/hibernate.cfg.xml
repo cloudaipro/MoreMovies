@@ -12,6 +12,7 @@
 			DateTimeFormatString=MM/dd/yyyy HH:mm:ss.FFFFFFF;
 		</property>
 		<property name="dialect">NHibernate.Dialect.SQLiteDialect</property>
-    <mapping assembly="MoreMovies"/>
+        <property name="adonet.batch_size">1000</property>
+        <mapping assembly="MoreMovies"/>
 	</session-factory>
 </hibernate-configuration>

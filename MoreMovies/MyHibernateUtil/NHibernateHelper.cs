@@ -30,7 +30,7 @@ namespace MyHibernateUtil
             public int tid = 0;
         }
         SessionProxy[] sessionPool = new SessionProxy[MAX_SESSION];
-
+        public IStatelessSession oStatelessSession { get; set; } = null;
         private Configuration Configuration { get; set; }
         public ISessionFactory SessionFactory { get; set; }
         //private ISession session = null;
@@ -49,6 +49,7 @@ namespace MyHibernateUtil
                 for (int i = 0; i < MAX_SESSION; i++)
                     sessionPool[i] = new SessionProxy();
             }
+            oStatelessSession = SessionFactory.OpenStatelessSession();
         }
 
         public void CloseSessionPool()
@@ -73,6 +74,8 @@ namespace MyHibernateUtil
                     sp.tid = 0;
                 }
             }
+            lock (oStatelessSession)
+                oStatelessSession.Dispose();
         }
 
 

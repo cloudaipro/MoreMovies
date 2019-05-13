@@ -10,8 +10,8 @@ namespace MyHibernateUtil
 		protected bool bInitialed = false;
 		private NHibernateHelper NHB { get; } = new NHibernateHelper();
 		protected ISession oSession { get { return NHB.Session; } }
-
-		private NHibernateHelper NHB1 { get; } = new NHibernateHelper(); // for read only session
+        protected IStatelessSession oStatelessSession { get => NHB.oStatelessSession; }
+        private NHibernateHelper NHB1 { get; } = new NHibernateHelper(); // for read only session
 		protected ISession oSession1 { get { return NHB1.Session; } }
 		private string sConfigureFile = "";
 		protected List<string> getFactoryList()

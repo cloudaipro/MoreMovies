@@ -12,7 +12,7 @@ namespace MoreMovies.Models
     public class Title_Ratings : INotifyPropertyChanged
     {
         public virtual string tconst { get; set; }           // (string) - alphanumeric unique identifier of the title
-        public virtual float? averageRating { get; set; }    // – weighted average of all the individual user ratings
+        public virtual double averageRating { get; set; }    // – weighted average of all the individual user ratings
         public virtual int? numVotes { get; set; }         // - number of votes the title has received
 
         public virtual event PropertyChangedEventHandler PropertyChanged;

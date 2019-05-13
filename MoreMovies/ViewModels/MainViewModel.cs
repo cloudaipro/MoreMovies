@@ -25,14 +25,17 @@ namespace MoreMovies.ViewModels
         public virtual ReactiveCommand<MetroWindow, Task> CmdDataMaintenance { get; set; }
         public virtual ObservableCollection<Title_Akas> Title_Akases { get; set; } = new ObservableCollection<Title_Akas>();
         public virtual ObservableCollection<Name_Basics> Name_Basics { get; set; } = new ObservableCollection<Name_Basics>();
+        public int BatchSize = 1000;
         public MainViewModel()
         {
             CmdDataMaintenance = ReactiveCommand.Create(async (MetroWindow w) => {
-                ITransaction xact = DBBO.Session.BeginTransaction();
+                ITransaction xact = DBBO.StatelessSession.BeginTransaction();//Session.BeginTransaction();
+                //IStatelessSession session = DBBO.StatelessSession
                 int dataCnt = 0;
+                
                 await CreateDataToDB(w, "Dataset\\name.basics.tsv.gz", "Dataset\\name.basics.tsv", 
                     (fields) => {
-                        DBBO.Session.Save(new Name_Basics
+                        DBBO.StatelessSession.Insert(new Name_Basics
                         {
                             //nconst	primaryName	birthYear	deathYear	primaryProfession	knownForTitles
                             nconst = fields[0],
@@ -42,9 +45,10 @@ namespace MoreMovies.ViewModels
                             primaryProfession = ToStr(fields[4]),
                             knownForTitles = ToStr(fields[5])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
-                            try { xact.Commit(); } catch (Exception ex)
+                            try { xact.Commit(); }
+                            catch (Exception ex)
                             {
                                 xact.Rollback();
                                 using (StreamWriter outputFile = new StreamWriter("data.log", true))
@@ -52,7 +56,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -66,10 +70,10 @@ namespace MoreMovies.ViewModels
                 }
 
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
+                xact = DBBO.StatelessSession.BeginTransaction();
                 await CreateDataToDB(w, "Dataset\\title.akas.tsv.gz", "Dataset\\title.akas.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Akas
+                        DBBO.StatelessSession.Insert(new Title_Akas
                         {
                             //titleId	ordering	title	region	language	types	attributes	isOriginalTitle
                             titleId = fields[0],
@@ -81,7 +85,7 @@ namespace MoreMovies.ViewModels
                             attributes = ToStr(fields[6]),
                             isOriginalTitle = ToBool(fields[7])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -92,7 +96,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -106,10 +110,10 @@ namespace MoreMovies.ViewModels
                 }
 
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
+                xact = DBBO.StatelessSession.BeginTransaction();
                 await CreateDataToDB(w, "Dataset\\title.basics.tsv.gz", "Dataset\\title.basics.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Basics
+                        DBBO.StatelessSession.Insert(new Title_Basics
                         {
                             //tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
                             tconst = fields[0],
@@ -122,7 +126,7 @@ namespace MoreMovies.ViewModels
                             runtimeMinutes = ToInt(fields[7]),
                             genres = ToStr(fields[8])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -133,7 +137,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -147,17 +151,17 @@ namespace MoreMovies.ViewModels
                 }
 
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
+                xact = DBBO.StatelessSession.BeginTransaction();
                 await CreateDataToDB(w, "Dataset\\title.crew.tsv.gz", "Dataset\\title.crew.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Crew
+                        DBBO.StatelessSession.Insert(new Title_Crew
                         {
                             //tconst	directors	writers
                             tconst = fields[0],
                             directors = ToStr(fields[1]),
                             writers = ToStr(fields[2])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -168,7 +172,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -182,10 +186,10 @@ namespace MoreMovies.ViewModels
                 }
 
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
+                xact = DBBO.StatelessSession.BeginTransaction();
                 await CreateDataToDB(w, "Dataset\\title.episode.tsv.gz", "Dataset\\title.episode.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Episode
+                        DBBO.StatelessSession.Insert(new Title_Episode
                         {
                             //tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
                             tconst = fields[0],
@@ -193,7 +197,7 @@ namespace MoreMovies.ViewModels
                             seasonNumber = ToInt(fields[2]),
                             episodeNumber = ToInt(fields[3])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -204,7 +208,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -218,10 +222,10 @@ namespace MoreMovies.ViewModels
                 }
 
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
-                await CreateDataToDB(w, "Dataset\\title.principals.tsv.gz", "title.principals.tsv",
+                xact = DBBO.StatelessSession.BeginTransaction();
+                await CreateDataToDB(w, "Dataset\\title.principals.tsv.gz", "Dataset\\title.principals.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Principals
+                        DBBO.StatelessSession.Insert(new Title_Principals
                         {
                             //tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
                             tconst = fields[0],
@@ -231,7 +235,7 @@ namespace MoreMovies.ViewModels
                             job = ToStr(fields[4]),
                             characters = ToStr(fields[5])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -242,7 +246,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -254,19 +258,19 @@ namespace MoreMovies.ViewModels
                         outputFile.WriteLine(ex.Message);
                     }
                 }
-
+                
                 dataCnt = 0;
-                xact = DBBO.Session.BeginTransaction();
-                await CreateDataToDB(w, "Dataset\\title.ratings.tsv.gz", "title.ratings.tsv",
+                xact = DBBO.StatelessSession.BeginTransaction();
+                await CreateDataToDB(w, "Dataset\\title.ratings.tsv.gz", "Dataset\\title.ratings.tsv",
                     (fields) => {
-                        DBBO.Session.Save(new Title_Ratings
+                        DBBO.StatelessSession.Insert(new Title_Ratings
                         {
                             //tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
                             tconst = fields[0],
-                            averageRating = ToFloat(fields[1]),
+                            averageRating = ToDouble(fields[1]),
                             numVotes = ToInt(fields[2])
                         });
-                        if (dataCnt++ % 100 == 0)
+                        if (dataCnt++ % BatchSize == 0)
                         {
                             try { xact.Commit(); }
                             catch (Exception ex)
@@ -277,7 +281,7 @@ namespace MoreMovies.ViewModels
                                     outputFile.WriteLine(ex.Message);
                                 }
                             }
-                            xact = DBBO.Session.BeginTransaction();
+                            xact = DBBO.StatelessSession.BeginTransaction();
                         }
                     });
                 try { xact.Commit(); }
@@ -311,12 +315,24 @@ namespace MoreMovies.ViewModels
         {
             try
             {
-                return float.Parse(s);
+                return  (float)Math.Round(float.Parse(s), 1);
 
             }
             catch (Exception)
             {
                 return null;
+            }
+        }
+        private double ToDouble(string s)
+        {
+            try
+            {
+                return Math.Round(Double.Parse(s), 1);
+
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
         private bool ToBool(string s)
@@ -348,77 +364,6 @@ namespace MoreMovies.ViewModels
         }
 
 
-        private async Task ShowProgressDialog(MetroWindow w)
-        {
-            var mySettings = new MetroDialogSettings()
-            {
-                NegativeButtonText = "Close now",
-                AnimateShow = false,
-                AnimateHide = false
-            };
-
-            var controller = await w.ShowProgressAsync("Please wait...", "Decompress title.akas.tsv.gz!", settings: mySettings);
-            controller.SetIndeterminate();
-
-            await Decompress(new FileInfo("Dataset\\title.akas.tsv.gz"));//Task.Delay(5000);
-
-            controller.SetCancelable(true);
-            await Task.Run(() => 
-            {
-                var lines = File.ReadAllLines(@"Dataset\\title.akas.tsv");
-                int idx = 0;
-                IObservable<string[]> allRecords = lines.Skip(1)
-                                                        .Select(line => line.Split('\t'))
-                                                        .ToObservable();
-                allRecords.Subscribe((fields) =>
-                          {                            
-                              Title_Akases.Add(new Title_Akas {
-                                  //titleId	ordering	title	region	language	types	attributes	isOriginalTitle
-                                  titleId = fields[0],
-                                  ordering = Int32.Parse(fields[1]),
-                                  title = fields[2],
-                                  region = fields[3],
-                                  language = fields[4],
-                                  types = fields[5],
-                                  attributes = fields[6],
-                                  isOriginalTitle = fields[7].Equals("0") ? false : true
-                              });
-                              if (++idx % 100 == 0)
-                              {
-                                  controller.SetMessage("Baking cupcake(" + idx + "): " + fields[2] + " ...");
-                              }
-                          });
-                controller.SetMessage("Total Baking cupcake: " + idx + ".");
-            });
-
-
-            double i = 0.0;
-            while (i < 6.0)
-            {
-                double val = (i / 100.0) * 20.0;
-                controller.SetProgress(val);
-                controller.SetMessage("Baking cupcake: " + i + "...");
-
-                if (controller.IsCanceled)
-                    break; //canceled progressdialog auto closes.
-
-                i += 1.0;
-
-                await Task.Delay(2000);
-            }
-
-            await controller.CloseAsync();
-
-            if (controller.IsCanceled)
-            {
-                await w.ShowMessageAsync("No cupcakes!", "You stopped baking!");
-            }
-            else
-            {
-                await w.ShowMessageAsync("Cupcakes!", "Your cupcakes are finished! Enjoy!");
-            }
-        }
-
         private async Task CreateDataToDB(MetroWindow w, string gzName, string tsvName, Action<string[]> createData)
         {
             var mySettings = new MetroDialogSettings()
@@ -432,7 +377,10 @@ namespace MoreMovies.ViewModels
             //controller.SetIndeterminate();
             if (!File.Exists(tsvName))
                 await Decompress(new FileInfo(gzName));
+            controller.Minimum = 0;
+            controller.Maximum = 100;
             controller.SetProgress(0);
+            
             controller.SetCancelable(true);
             await Task.Run(() =>
             {
@@ -443,22 +391,22 @@ namespace MoreMovies.ViewModels
                 var allRecords = Observable.Create<string[]>(observer =>
                 {
                     string line;
-                    int idx = 1;
+                    int idx = 0;
                     while ((line = stream.ReadLine()) != null)
                     {
                         observer.OnNext(line.Split('\t'));
                         try
                         {
                             progress += line.Length + 1;
-                            dPercentage = progress * 100 / fileSize;
-                            controller.SetProgress(Math.Round(dPercentage / 100, 2));
-                            controller.SetMessage("Create data " + tsvName + " ... " + idx++ + " - " + Math.Round(dPercentage, 2) + "%");
+                            if (++idx % BatchSize != 0) continue;
+                            dPercentage = Math.Round(progress * 100.0 / fileSize, 2);
+                            if (dPercentage > 100) dPercentage = 100;
+                            controller.SetProgress(dPercentage);
+                            controller.SetMessage("Create data " + tsvName + " ... " + idx + " - " + dPercentage + "%");
                             if (controller.IsCanceled)
                                 break;
                         }
-                        catch (Exception)
-                        {
-                        }
+                        catch (Exception){}
                     }
                     if (controller.IsCanceled == false)
                         controller.SetProgress(100);

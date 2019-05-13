@@ -5,7 +5,6 @@
     <id name="tconst" column="tconst" type ="TrimString">
       <generator class="assigned" />
     </id>
-    <property name="tconst" column="tconst" type ="TrimString"/>
     <property name="directors" column="directors" type ="TrimString"/>
     <property name="writers" column="writers" type ="TrimString"/>
   </class>
