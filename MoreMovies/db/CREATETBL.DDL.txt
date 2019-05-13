@@ -1,0 +1,60 @@
+CREATE TABLE "Name_Basics" (
+	"nconst"	TEXT,
+	"primaryName"	TEXT,
+	"birthYear"	INTEGER,
+	"deathYear"	INTEGER,
+	"primaryProfession"	TEXT,
+	"knownForTitles" TEXT,
+	PRIMARY KEY("nconst")
+);
+CREATE TABLE "Title_Akas" (
+	"titleId"	TEXT,
+	"ordering"	INTEGER,
+	"title"	TEXT,
+	"region"	TEXT,
+	"language"	TEXT,
+	"types"	TEXT,
+	"attributes"	TEXT,
+	"isOriginalTitle"	INTEGER,
+	PRIMARY KEY("titleId")
+);
+CREATE TABLE "Title_Basics" (
+	"tconst"	TEXT,
+	"titleType"	TEXT,
+	"primaryTitle"	TEXT,
+	"originalTitle"	TEXT,
+	"isAdult"	INTEGER,
+	"startYear"	INTEGER,
+	"endYear"	INTEGER,
+	"runtimeMinutes"	INTEGER,
+	"genres"	TEXT,
+	PRIMARY KEY("tconst")
+);
+CREATE TABLE "Title_Crew" (
+	"tconst"	TEXT,
+	"directors"	TEXT,
+	"writers"	TEXT,
+	PRIMARY KEY("tconst")
+);
+CREATE TABLE "Title_Episode" (
+	"tconst"	TEXT,
+	"parentTconst"	TEXT,
+	"seasonNumber"	INTEGER,
+	"episodeNumber"	INTEGER,
+	PRIMARY KEY("tconst")
+);
+CREATE TABLE "Title_Principals" (
+	"tconst"	TEXT,
+	"ordering"	INTEGER,
+	"nconst"	TEXT,
+	"category"	TEXT,
+	"job"	TEXT,
+	"characters"	TEXT,
+	PRIMARY KEY("tconst")
+);
+CREATE TABLE "Title_Ratings" (
+	"tconst"	TEXT,
+	"averageRating"	REAL,
+	"numVotes"	INTEGER,
+	PRIMARY KEY("tconst")
+);

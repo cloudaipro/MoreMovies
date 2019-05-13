@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="MoreMovies" namespace="MoreMovies.Models" xmlns="urn:nhibernate-mapping-2.2">
+  <typedef name="TrimString" class="MyHibernateUtil.TrimString, MyHibernateUtil"/>
+  <class name="Title_Ratings" table="Title_Ratings" lazy="true" >
+    <id name="tconst" column="tconst" type ="TrimString">
+      <generator class="assigned" />
+    </id>
+    <property name="averageRating" column="averageRating"/>
+    <property name="numVotes" column="numVotes"/>
+  </class>
+</hibernate-mapping>

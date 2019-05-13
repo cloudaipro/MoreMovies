@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMovies", "MoreMovies\MoreMovies.csproj", "{92E82364-AD0C-42BA-8700-274714D30A5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHibernateUtil", "MoreMovies\MyHibernateUtil\MyHibernateUtil.csproj", "{B34CF3B4-253D-4147-8F63-B3F46552B3FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMahAppsExt", "MoreMovies\MyMahAppsExt\MyMahAppsExt.csproj", "{23C4BDB9-D30A-44C6-9B93-45C88292E711}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{92E82364-AD0C-42BA-8700-274714D30A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E82364-AD0C-42BA-8700-274714D30A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E82364-AD0C-42BA-8700-274714D30A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B34CF3B4-253D-4147-8F63-B3F46552B3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34CF3B4-253D-4147-8F63-B3F46552B3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34CF3B4-253D-4147-8F63-B3F46552B3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34CF3B4-253D-4147-8F63-B3F46552B3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C4BDB9-D30A-44C6-9B93-45C88292E711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C4BDB9-D30A-44C6-9B93-45C88292E711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C4BDB9-D30A-44C6-9B93-45C88292E711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C4BDB9-D30A-44C6-9B93-45C88292E711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

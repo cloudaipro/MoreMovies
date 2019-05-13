@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="MoreMovies" namespace="MoreMovies.Models" xmlns="urn:nhibernate-mapping-2.2">
+  <typedef name="TrimString" class="MyHibernateUtil.TrimString, MyHibernateUtil"/>
+  <class name="Title_Crew" table="Title_Crew" lazy="true" >
+    <id name="tconst" column="tconst" type ="TrimString">
+      <generator class="assigned" />
+    </id>
+    <property name="tconst" column="tconst" type ="TrimString"/>
+    <property name="directors" column="directors" type ="TrimString"/>
+    <property name="writers" column="writers" type ="TrimString"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="MoreMovies" namespace="MoreMovies.Models" xmlns="urn:nhibernate-mapping-2.2">
+  <typedef name="TrimString" class="MyHibernateUtil.TrimString, MyHibernateUtil"/>
+  <class name="Title_Principals" table="Title_Principals" lazy="true" >
+    <composite-id>
+      <key-property name="tconst" column="titleId" />
+      <key-property name="ordering" column="ordering" />
+    </composite-id>
+    <property name="nconst" column="nconst" type ="TrimString"/>
+    <property name="category" column="category" type ="TrimString"/>
+    <property name="job" column="job" type ="TrimString"/>
+    <property name="characters" column="characters" type ="TrimString"/>
+  </class>
+</hibernate-mapping>
